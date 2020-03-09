@@ -1,0 +1,79 @@
+{
+  "name": "reweb-testing-example",
+  "version": "0.0.0",
+  "description": "My Project",
+  "esy": {
+    "build": "dune build -p <PACKAGE_NAME>",
+    "buildDev": "pesy",
+    "release": {
+      "releasedBinaries": [
+        "RewebTestingExampleApp.exe"
+      ]
+    }
+  },
+  "buildDirs": {
+    "test": {
+      "require": ["reweb-testing-example.lib", "rely.lib"],
+      "name": "reweb-testing-example.test",
+      "namespace": "RewebTestingExampleTest",
+      "flags": "-linkall"
+    },
+    "testrunner": {
+      "require": ["reweb-testing-example.test"],
+      "main": "TestRewebTestingExample",
+      "name": "TestRewebTestingExample.exe"
+    },
+    "library": {
+      "require": ["re-web", "lwt"],
+      "name": "reweb-testing-example.lib",
+      "namespace": "RewebTestingExample"
+    },
+    "executable": {
+      "require": ["reweb-testing-example.lib"],
+      "main": "RewebTestingExampleApp",
+      "name": "RewebTestingExampleApp.exe"
+    }
+  },
+  "scripts": {
+    "pesy": "bash -c 'env PESY_MODE=update pesy'",
+    "start": "esy x RewebTestingExampleApp.exe",
+    "test": "esy x TestRewebTestingExample.exe"
+  },
+  "dependencies": {
+    "@opam/dune": ">=1.6.0",
+    "@esy-ocaml/reason": "*",
+    "ocaml": "4.8.1000",
+    "@opam/re-web": "*",
+    "@opam/lwt": ">= 5.1.0 < 6.0.0"
+  },
+  "devDependencies": {
+    "ocaml": "4.8.1000",
+    "refmterr": "*",
+    "pesy": "*",
+    "@opam/merlin": "*",
+    "@reason-native/rely": "^3.2.1"
+  },
+  "resolutions": {
+    "@opam/re-web": "yawaramin/re-web:package.json#a430547",
+    "@opam/conf-libssl": "esy-packages/esy-openssl#648930f",
+    "@opam/multipart-form-data": "cryptosense/multipart-form-data:multipart-form-data.opam#d49fd89",
+    "@opam/websocketaf": {
+      "source": "anmonteiro/websocketaf:websocketaf.opam#8318e44",
+      "override": {
+        "dependencies": {
+          "@opam/httpaf": "anmonteiro/httpaf:httpaf.opam#9308e34"
+        }
+      }
+    },
+    "@opam/websocketaf-lwt-unix": {
+      "source": "anmonteiro/websocketaf:websocketaf-lwt-unix.opam#8318e44",
+      "override": {
+        "dependencies": {
+          "@opam/websocketaf-lwt":
+            "anmonteiro/websocketaf:websocketaf-lwt.opam#8318e44"
+        }
+      }
+    }
+  }
+
+}
